@@ -139,6 +139,7 @@ function showStep2Part3() {
     document.getElementById('step-2-sub-1').style.display = 'none';
     document.getElementById('step-2-sub-2').style.display = 'none';
     document.getElementById('step-2-sub-3').style.display = 'block';
+    startTimer();
 }
 
 function showStep2Part2FromPart3() {
@@ -148,7 +149,6 @@ function showStep2Part2FromPart3() {
 function verifyOtpAndNext() {
     goToStep(3);
 }
-
 let timeLeft = 110; // 1 dəqiqə 50 saniyə = 110 saniyə
 const timerDisplay = document.getElementById('timer');
 const resendBtn = document.getElementById('resend-btn');
@@ -159,30 +159,45 @@ function startTimer() {
     clearInterval(countdownInterval);
     timeLeft = 110;
     
+    // İlkin vaxtı dərhal göstəririk
+    timerDisplay.textContent = "1:50";
+    
     // Sayğac işləyərkən düyməni qeyri-aktiv edirik
     resendBtn.className = "text-slate-400 font-medium cursor-not-allowed";
     resendBtn.onclick = null;
 
     countdownInterval = setInterval(() => {
+        timeLeft--;
+        
         if (timeLeft <= 0) {
             clearInterval(countdownInterval);
-            // Vaxt bitdikdə düyməni aktivləşdiririk
-            resendBtn.innerHTML = "Yenidən göndər";
+            
+            // Vaxt bitdikdə düyməni aktivləşdiririk və mətnini bərpa edirik
+            resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">0:00</span>)';
+            
+            // Yenidən timerElement-i tapmaq lazımdır çünki innerHTML dəyişdi
+            const newTimerDisplay = document.getElementById('timer');
+            if(newTimerDisplay) newTimerDisplay.textContent = "0:00";
+
             resendBtn.className = "text-blue-600 font-medium cursor-pointer hover:underline";
+            
+            // Yenidən göndər klikləndikdə işləyəcək funksiya
             resendBtn.onclick = function() {
-                // Yenidən göndər klikləndikdə kodu bura yaz (məsələn, SMS göndərmə fonksiyonu)
                 alert("Yeni OTP kod göndərildi!");
-                startTimer(); // Sayğacı yenidən sıfırdan başladır
+                
+                // HTML strukturunu əvvəlki halına qaytarırıq ki, timer span-ı yenidən mövcud olsun
+                resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">1:50</span>)';
+                
+                // Timer elementini yenidən təyin edirik
+                timerDisplay = document.getElementById('timer'); 
+                
+                // Sayğacı yenidən sıfırdan başladırıq
+                startTimer();
             };
         } else {
-            timeLeft--;
             let minutes = Math.floor(timeLeft / 60);
             let seconds = timeLeft % 60;
-            // Saniyə 10-dan kiçik olarsa qabağına '0' əlavə edirik (məsələn: 1:09)
             timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }
     }, 1000);
 }
-
-// Səhifə açılan kimi sayğacı işə salırıq
-startTimer();
