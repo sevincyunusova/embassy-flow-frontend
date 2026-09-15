@@ -381,8 +381,9 @@
                     <div class="mb-8 text-sm space-y-1 ">
                         <p class="text-slate-700">
                             Mobil nömrənizə OTP kod gəlməyib ?
-                            <span class="text-blue-600 font-medium cursor-pointer hover:underline">Yenidən göndər
-                                (1:03)</span>
+                            <span id="resend-btn"
+                                class="text-blue-600 font-medium cursor-pointer hover:underline">Yenidən göndər
+                                (<span id="timer">1:50</span>)</span>
                         </p>
                         <p class="text-slate-500">
                             Bu nömrə aktiv deyil?
@@ -395,8 +396,7 @@
                             class="w-1/3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold py-4 rounded-xl transition text-center cursor-pointer">
                             Geri
                         </button>
-                        <button onclick="showStep2Part3()"
-                        class=" w-[30%] bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition
+                        <button onclick="showStep2Part3()" class=" w-[30%] bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition
                             shadow-md shadow-blue-500/20 text-center cursor-pointer">
                             İrəli
                         </button>

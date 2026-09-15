@@ -148,3 +148,41 @@ function showStep2Part2FromPart3() {
 function verifyOtpAndNext() {
     goToStep(3);
 }
+
+let timeLeft = 110; // 1 dəqiqə 50 saniyə = 110 saniyə
+const timerDisplay = document.getElementById('timer');
+const resendBtn = document.getElementById('resend-btn');
+
+let countdownInterval;
+
+function startTimer() {
+    clearInterval(countdownInterval);
+    timeLeft = 110;
+    
+    // Sayğac işləyərkən düyməni qeyri-aktiv edirik
+    resendBtn.className = "text-slate-400 font-medium cursor-not-allowed";
+    resendBtn.onclick = null;
+
+    countdownInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            // Vaxt bitdikdə düyməni aktivləşdiririk
+            resendBtn.innerHTML = "Yenidən göndər";
+            resendBtn.className = "text-blue-600 font-medium cursor-pointer hover:underline";
+            resendBtn.onclick = function() {
+                // Yenidən göndər klikləndikdə kodu bura yaz (məsələn, SMS göndərmə fonksiyonu)
+                alert("Yeni OTP kod göndərildi!");
+                startTimer(); // Sayğacı yenidən sıfırdan başladır
+            };
+        } else {
+            timeLeft--;
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            // Saniyə 10-dan kiçik olarsa qabağına '0' əlavə edirik (məsələn: 1:09)
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    }, 1000);
+}
+
+// Səhifə açılan kimi sayğacı işə salırıq
+startTimer();
