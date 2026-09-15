@@ -49,7 +49,6 @@ function goToStep(stepNumber) {
 
     const totalSteps = 7;
     for (let i = 1; i <= totalSteps; i++) {
-        // Hər bir addım elementini data-step atributu ilə tapırıq
         const stepItem = document.querySelector(`[data-step="${i}"]`);
         if (!stepItem) continue;
 
