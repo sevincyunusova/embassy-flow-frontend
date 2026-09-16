@@ -238,12 +238,26 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
 
                     <div id="lang-en" onclick="selectLanguage('en')"
                         class="border-2 border-slate-200 hover:border-slate-300 rounded-2xl p-5 text-center cursor-pointer bg-white transition relative flex items-center justify-center gap-3">
                         <svg class="w-7 h-5 rounded shadow-sm object-cover" viewBox="0 0 60 30"
                             xmlns="http://www.w3.org/2000/svg">
+                            <clipPath id="s">
+                                <path d="M0,0 v30 h60 v-30 z" />
+                            </clipPath>
+                            <clipPath id="t">
+                                <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+                            </clipPath>
+                            <g clip-path="url(#s)">
+                                <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+                                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+                                <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E"
+                                    stroke-width="4" />
+                                <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+                                <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+                            </g>
                         </svg>
                         <span class="font-semibold text-slate-700">İngiliscə</span>
                     </div>
@@ -252,6 +266,16 @@
                         class="border-2 border-slate-200 hover:border-slate-300 rounded-2xl p-5 text-center cursor-pointer bg-white transition relative flex items-center justify-center gap-3">
                         <svg class="w-7 h-5 rounded shadow-sm object-cover border border-slate-100"
                             viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="1200" height="600" fill="#00af66" />
+                            <rect width="1200" height="400" fill="#ed2939" />
+                            <rect width="1200" height="200" fill="#0099d8" />
+                            <g transform="translate(600,300)">
+                                <circle r="100" fill="#ed2939" />
+                                <circle cx="20" r="85" fill="#f6f8ff" />
+                                <path d="M 45 -65 A 75 75 0 1 1 45 65 A 60 60 0 1 0 45 -65" fill="#ed2939" />
+                                <polygon points="0,-95 24,-24 93,-24 37,17 58,88 0,46 -58,88 -37,17 -93,-24 -24,-24"
+                                    fill="#ed2939" transform="translate(55,0) scale(0.35)" />
+                            </g>
                         </svg>
                         <span class="font-semibold text-slate-700">Azərbaycanca</span>
                     </div>
