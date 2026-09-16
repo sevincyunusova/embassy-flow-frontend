@@ -149,7 +149,7 @@ function showStep2Part2FromPart3() {
 function verifyOtpAndNext() {
     goToStep(3);
 }
-let timeLeft = 110; // 1 dəqiqə 50 saniyə = 110 saniyə
+let timeLeft = 110; 
 const timerDisplay = document.getElementById('timer');
 const resendBtn = document.getElementById('resend-btn');
 
@@ -158,12 +158,8 @@ let countdownInterval;
 function startTimer() {
     clearInterval(countdownInterval);
     timeLeft = 110;
-    
-    // İlkin vaxtı dərhal göstəririk
-    timerDisplay.textContent = "1:50";
-    
-    // Sayğac işləyərkən düyməni qeyri-aktiv edirik
-    resendBtn.className = "text-slate-400 font-medium cursor-not-allowed";
+        timerDisplay.textContent = "1:50";
+        resendBtn.className = "text-slate-400 font-medium cursor-not-allowed";
     resendBtn.onclick = null;
 
     countdownInterval = setInterval(() => {
@@ -172,27 +168,17 @@ function startTimer() {
         if (timeLeft <= 0) {
             clearInterval(countdownInterval);
             
-            // Vaxt bitdikdə düyməni aktivləşdiririk və mətnini bərpa edirik
             resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">0:00</span>)';
-            
-            // Yenidən timerElement-i tapmaq lazımdır çünki innerHTML dəyişdi
-            const newTimerDisplay = document.getElementById('timer');
+                        const newTimerDisplay = document.getElementById('timer');
             if(newTimerDisplay) newTimerDisplay.textContent = "0:00";
 
             resendBtn.className = "text-blue-600 font-medium cursor-pointer hover:underline";
             
-            // Yenidən göndər klikləndikdə işləyəcək funksiya
             resendBtn.onclick = function() {
                 alert("Yeni OTP kod göndərildi!");
-                
-                // HTML strukturunu əvvəlki halına qaytarırıq ki, timer span-ı yenidən mövcud olsun
-                resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">1:50</span>)';
-                
-                // Timer elementini yenidən təyin edirik
+                                resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">1:50</span>)';
                 timerDisplay = document.getElementById('timer'); 
-                
-                // Sayğacı yenidən sıfırdan başladırıq
-                startTimer();
+                                startTimer();
             };
         } else {
             let minutes = Math.floor(timeLeft / 60);
@@ -201,3 +187,43 @@ function startTimer() {
         }
     }, 1000);
 }
+
+
+function selectLanguage(lang) {
+    const langEn = document.getElementById('lang-en');
+    const langAz = document.getElementById('lang-az');
+    
+    const spanEn = langEn.querySelector('span');
+    const spanAz = langAz.querySelector('span');
+
+    if (lang === 'en') {
+        langEn.classList.remove('border-slate-200', 'bg-white', 'hover:border-slate-300');
+        langEn.classList.add('border-blue-600', 'bg-blue-50');
+        spanEn.classList.remove('text-slate-700');
+        spanEn.classList.add('text-blue-900', 'font-bold');
+
+        langAz.classList.remove('border-blue-600', 'bg-blue-50');
+        langAz.classList.add('border-slate-200', 'bg-white', 'hover:border-slate-300');
+        spanAz.classList.remove('text-blue-900', 'font-bold');
+        spanAz.classList.add('text-slate-700');
+    } else if (lang === 'az') {
+        langAz.classList.remove('border-slate-200', 'bg-white', 'hover:border-slate-300');
+        langAz.classList.add('border-blue-600', 'bg-blue-50');
+        spanAz.classList.remove('text-slate-700');
+        spanAz.classList.add('text-blue-900', 'font-bold');
+
+        langEn.classList.remove('border-blue-600', 'bg-blue-50');
+        langEn.classList.add('border-slate-200', 'bg-white', 'hover:border-slate-300');
+        spanEn.classList.remove('text-blue-900', 'font-bold');
+        spanEn.classList.add('text-slate-700');
+    }
+
+    localStorage.setItem('selected_language', lang);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const savedLang = localStorage.getItem('selected_language');
+    if (savedLang) {
+        selectLanguage(savedLang);
+    }
+});
