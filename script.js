@@ -43,11 +43,11 @@ function goToStep(stepNumber) {
     // (Məsələn, səndə seçilmiş elementə 'border-blue-600' class-ı əlavə olunursa)
     if (stepNumber === 3) {
         // Step 2-də seçilmiş hər hansı bir elementin olub-olmadığını yoxlayırıq:
-        const selectedStep2Item = document.querySelector('#step-2 .border-blue-600'); 
-        
+        const selectedStep2Item = document.querySelector('#step-2 .border-blue-600');
+
         // Əgər heç nə seçilməyibsə, keçidin qarşısını al (istəsən şərtə uyğun ID və ya sinif dəyişə bilərsən)
         if (!selectedStep2Item) {
-            return; 
+            return;
         }
     }
 
@@ -166,7 +166,7 @@ function showStep2Part2FromPart3() {
 function verifyOtpAndNext() {
     goToStep(3);
 }
-let timeLeft = 110; 
+let timeLeft = 110;
 const timerDisplay = document.getElementById('timer');
 const resendBtn = document.getElementById('resend-btn');
 
@@ -175,27 +175,27 @@ let countdownInterval;
 function startTimer() {
     clearInterval(countdownInterval);
     timeLeft = 110;
-        timerDisplay.textContent = "1:50";
-        resendBtn.className = "text-slate-400 font-medium cursor-not-allowed";
+    timerDisplay.textContent = "1:50";
+    resendBtn.className = "text-slate-400 font-medium cursor-not-allowed";
     resendBtn.onclick = null;
 
     countdownInterval = setInterval(() => {
         timeLeft--;
-        
+
         if (timeLeft <= 0) {
             clearInterval(countdownInterval);
-            
+
             resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">0:00</span>)';
-                        const newTimerDisplay = document.getElementById('timer');
-            if(newTimerDisplay) newTimerDisplay.textContent = "0:00";
+            const newTimerDisplay = document.getElementById('timer');
+            if (newTimerDisplay) newTimerDisplay.textContent = "0:00";
 
             resendBtn.className = "text-blue-600 font-medium cursor-pointer hover:underline";
-            
-            resendBtn.onclick = function() {
+
+            resendBtn.onclick = function () {
                 alert("Yeni OTP kod göndərildi!");
-                                resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">1:50</span>)';
-                timerDisplay = document.getElementById('timer'); 
-                                startTimer();
+                resendBtn.innerHTML = 'Yenidən göndər (<span id="timer">1:50</span>)';
+                timerDisplay = document.getElementById('timer');
+                startTimer();
             };
         } else {
             let minutes = Math.floor(timeLeft / 60);
@@ -209,7 +209,7 @@ function startTimer() {
 function selectLanguage(lang) {
     const langEn = document.getElementById('lang-en');
     const langAz = document.getElementById('lang-az');
-    
+
     const spanEn = langEn.querySelector('span');
     const spanAz = langAz.querySelector('span');
 
@@ -251,4 +251,30 @@ function openInfoModal() {
 
 function closeInfoModal() {
     document.getElementById('infoModal').classList.add('hidden');
+}
+
+function toggleSelection(rowElement, type, maxLimit) {
+    const checkbox = rowElement.querySelector('.product-checkbox');
+    const isSelected = rowElement.getAttribute('data-selected') === 'true';
+    const rowClass = type === 'card' ? 'card-row' : 'account-row';
+
+    if (isSelected) {
+        rowElement.setAttribute('data-selected', 'false');
+        rowElement.classList.remove('border-blue-600', 'bg-blue-50/30');
+        rowElement.classList.add('border-slate-100');
+
+        checkbox.className = "product-checkbox w-5 h-5 rounded border border-slate-300 bg-slate-100 flex items-center justify-center text-xs text-slate-400 transition";
+    } else {
+        const selectedCount = document.querySelectorAll(`.${rowClass}[data-selected="true"]`).length;
+
+        if (selectedCount >= maxLimit) {
+            alert(`Maksimum ${maxLimit} ${type === 'card' ? 'kart' : 'hesab'} seçə bilərsiniz!`);
+            return;
+        }
+        rowElement.setAttribute('data-selected', 'true');
+        rowElement.classList.remove('border-slate-100');
+        rowElement.classList.add('border-blue-600', 'bg-blue-50/30');
+
+        checkbox.className = "product-checkbox w-5 h-5 rounded border border-blue-600 bg-blue-600 flex items-center justify-center text-xs text-white font-bold transition";
+    }
 }
