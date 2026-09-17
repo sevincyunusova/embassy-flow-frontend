@@ -30,23 +30,40 @@ function selectCard(cardId) {
 }
 
 function goToStep(stepNumber) {
+    // Əgər Step 2-yə keçmək istəyirsənsə, card-2 seçilibmi yoxla
     if (stepNumber === 2) {
         const card2 = document.getElementById('card-2');
-        if (!card2.classList.contains('border-blue-600')) {
+        if (card2 && !card2.classList.contains('border-blue-600')) {
             return;
         }
     }
 
+    // Əgər Step 3-ə keçmək istəyirsənsə (Step 2-dən irəli basanda), 
+    // Step 2 daxilində hər hansı bir kart və ya hesabın seçildiyini yoxla.
+    // (Məsələn, səndə seçilmiş elementə 'border-blue-600' class-ı əlavə olunursa)
+    if (stepNumber === 3) {
+        // Step 2-də seçilmiş hər hansı bir elementin olub-olmadığını yoxlayırıq:
+        const selectedStep2Item = document.querySelector('#step-2 .border-blue-600'); 
+        
+        // Əgər heç nə seçilməyibsə, keçidin qarşısını al (istəsən şərtə uyğun ID və ya sinif dəyişə bilərsən)
+        if (!selectedStep2Item) {
+            return; 
+        }
+    }
+
+    // Bütün step section-larını gizlət
     const allSections = document.querySelectorAll('section[id^="step-"]');
     allSections.forEach(section => {
         section.style.display = 'none';
     });
 
+    // Hədəf step-i göstər
     const targetSection = document.getElementById(`step-${stepNumber}`);
     if (targetSection) {
         targetSection.style.display = 'block';
     }
 
+    // Stepper vizualını yenilə (1-dən 7-yə qədər)
     const totalSteps = 7;
     for (let i = 1; i <= totalSteps; i++) {
         const stepItem = document.querySelector(`[data-step="${i}"]`);
