@@ -227,3 +227,11 @@ document.addEventListener("DOMContentLoaded", () => {
         selectLanguage(savedLang);
     }
 });
+
+function openInfoModal() {
+    document.getElementById('infoModal').classList.remove('hidden');
+}
+
+function closeInfoModal() {
+    document.getElementById('infoModal').classList.add('hidden');
+}

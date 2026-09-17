@@ -238,7 +238,7 @@
                     </div>
                 </div>
 
-               <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
 
                     <div id="lang-en" onclick="selectLanguage('en')"
                         class="border-2 border-slate-200 hover:border-slate-300 rounded-2xl p-5 text-center cursor-pointer bg-white transition relative flex items-center justify-center gap-3">
@@ -293,9 +293,13 @@
                 </div>
             </div>
 
-            <div id="step-2-sub-2" class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm"
+            <div id="step-2-sub-2"
+                class="relative overflow-hidden bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm"
                 style="display: none;">
                 <div class="mb-6 flex justify-between items-start">
+                    <img src="./abb-bg.png" alt="abb-logo"
+                        class="absolute -bottom-[250px] -right-[130px] w-[550px] h-auto opacity-100 pointer-events-none z-20">
+
                     <div>
                         <h3 class="text-3xl font-bold text-blue-600 mb-1">Kimliyinizi təsdiqləyin</h3>
                         <p class="text-slate-500 font-semibold text-sm">Hesab məlumatlarını göstərmək üçün FİN kodunuzu
@@ -379,7 +383,7 @@
                         <span class="text-base">🔒</span> Məlumatlarınız şifrələnərək ötürülür
                     </div>
 
-                    <div class="mb-8 text-sm space-y-1 ">
+                    <div class="mb-8 text-sm space-y-1">
                         <p class="text-slate-700">
                             Mobil nömrənizə OTP kod gəlməyib ?
                             <span id="resend-btn"
@@ -388,9 +392,58 @@
                         </p>
                         <p class="text-slate-500">
                             Bu nömrə aktiv deyil?
-                            <a href="#" class="text-blue-600 font-medium hover:underline">Ətraflı</a>
+                            <a href="#" onclick="openInfoModal(); return false;"
+                                class="text-blue-600 font-medium hover:underline">Ətraflı</a>
                         </p>
                     </div>
+
+                    <!-- Modal Pəncərəsi -->
+<div id="infoModal"
+    class="fixed inset-0 z-50 grid place-items-center p-4 overflow-y-auto bg-black/50 backdrop-blur-xs hidden">
+
+    <!-- Modal Kartı -->
+    <div
+        class="bg-white rounded-3xl p-6 md:px-8 md:py-10 max-w-md w-full shadow-2xl relative text-center flex flex-col items-center">
+
+        <!-- Yuxarıdakı Nida İkonu -->
+        <div class="w-16 h-16 rounded-full bg-blue-600 border border-slate-900 flex flex-col items-center justify-center mb-5 shadow-md shrink-0">
+            <div class="text-white text-2xl font-bold">
+                !
+            </div>
+        </div>
+
+        <!-- Başlıq -->
+        <h3 class="text-xl font-bold text-slate-900 mb-3">Nömrəni necə yeniləyə bilərəm?</h3>
+
+        <!-- Mətn -->
+        <p class="text-slate-500 text-sm text-left leading-relaxed mb-6 px-1">
+            Təhlükəsizlik səbəbindən OTP təsdiqi üçün istifadə olunan mobil nömrə yalnız bank filialında, şəxsiyyət vəsiqənizi təqdim etməklə dəyişdirilə bilər. Bu, hesabınızın icazəsiz şəxslər tərəfindən ələ keçirilməsinin qarşısını alır.
+        </p>
+
+        <!-- Addımlar siyahısı -->
+        <div class="w-full space-y-3 mb-8 text-left">
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-400">
+                <span class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                <span class="text-slate-700 text-sm font-medium">Ən yaxın ABB filialına şəxsiyyət vəsiqənizlə gedin</span>
+            </div>
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-400">
+                <span class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                <span class="text-slate-700 text-sm font-medium">Əlaqə məlumatları yenilənməsi formu doldurun</span>
+            </div>
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-400">
+                <span class="w-6 h-6 rounded-full bg-blue-50 text-blue-600 text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                <span class="text-slate-700 text-sm font-medium">Yeni nömrə 24 saat ərzində sistemdə aktivləşir</span>
+            </div>
+        </div>
+
+        <!-- Anladım Düyməsi -->
+        <button onclick="closeInfoModal()"
+            class="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl transition shadow-lg shadow-blue-500/25 cursor-pointer">
+            Anladım
+        </button>
+
+    </div>
+</div>
 
                     <div class="flex items-center justify-between gap-4">
                         <button onclick="showStep2Part2()"
